@@ -1,0 +1,101 @@
+# NAME: ChatGPT / OpenAI - Surge Complete
+# FORMAT: Surge Rule Set
+# UPDATED: 2026-09-26
+#
+# SOURCES:
+# 1) OpenAI official ChatGPT network allowlist (primary authority)
+# 2) Rabbit-Spec Surge AIGC.list, updated 2026-09-26 (supplemental)
+# 3) blackmatrix7 OpenAI.list (legacy cross-check)
+#
+# DESIGN:
+# - Official OpenAI/ChatGPT requirements are retained.
+# - Redundant OpenAI subdomains are collapsed into DOMAIN-SUFFIX rules.
+# - Rabbit-Spec entries are added only when they are strongly tied to OpenAI/ChatGPT.
+# - Broad shared third-party suffixes (all of Stripe/Sentry/Auth0/Cloudflare/etc.) are NOT
+#   imported wholesale, to avoid routing unrelated apps through the ChatGPT policy.
+# - ChatGPT Voice dynamic UDP 3478 IP ranges are intentionally not hard-coded.
+#
+# ============================================================
+# OpenAI official core
+# ============================================================
+
+DOMAIN-SUFFIX,openai.com
+DOMAIN-SUFFIX,chatgpt.com
+
+# Static assets / uploads / telemetry
+DOMAIN-SUFFIX,oaistatic.com
+DOMAIN-SUFFIX,oaiusercontent.com
+DOMAIN-SUFFIX,oaistatsig.com
+
+# Email / verification
+DOMAIN-SUFFIX,ct.sendgrid.net
+
+# Support / frontend dependencies
+DOMAIN-SUFFIX,intercom.io
+DOMAIN-SUFFIX,intercomcdn.com
+
+# OpenAI CDN
+DOMAIN,cdn.openaimerge.com
+
+# WorkOS authentication dependencies
+DOMAIN,cdn.workos.com
+DOMAIN,forwarder.workos.com
+DOMAIN,images.workoscdn.com
+DOMAIN,setup.workos.com
+DOMAIN,workos.imgix.net
+
+# Cloudflare challenge
+DOMAIN,challenges.cloudflare.com
+
+# Payment
+DOMAIN,js.stripe.com
+
+# Diagnostics / telemetry
+DOMAIN,o207216.ingest.sentry.io
+DOMAIN,o33249.ingest.sentry.io
+DOMAIN,rum.browser-intake-datadoghq.com
+
+# Apple native-app dependency
+DOMAIN,humb.apple.com
+
+# ============================================================
+# Rabbit-Spec supplemental OpenAI / ChatGPT infrastructure
+# ============================================================
+
+# OpenAI-specific CDN / storage
+DOMAIN,chat.openai.com.cdn.cloudflare.net
+DOMAIN,openaicom-api-bdcpf8c6d2e9atf6.z01.azurefd.net
+DOMAIN,openaicomproductionae4b.blob.core.windows.net
+DOMAIN,production-openaicom-storage.azureedge.net
+DOMAIN-SUFFIX,openaiapi-site.azureedge.net
+DOMAIN-SUFFIX,openaicom.imgix.net
+
+# Arkose anti-abuse / challenge
+DOMAIN,openai-api.arkoselabs.com
+DOMAIN-SUFFIX,client-api.arkoselabs.com
+
+# LiveKit / realtime-related infrastructure
+DOMAIN-SUFFIX,chatgpt.livekit.cloud
+DOMAIN-SUFFIX,host.livekit.cloud
+DOMAIN-SUFFIX,turn.livekit.cloud
+
+# ============================================================
+# Notes
+# ============================================================
+# Covered implicitly by DOMAIN-SUFFIX,openai.com:
+#   *.auth.openai.com
+#   auth0.openai.com
+#   setup.auth.openai.com
+#   chat.openai.com
+#   desktop.chat.openai.com
+#   ios.chat.openai.com
+#   android.chat.openai.com
+#   tcr9i.chat.openai.com
+#
+# Covered implicitly by DOMAIN-SUFFIX,chatgpt.com:
+#   ws.chatgpt.com
+#   ChatGPT/Codex WebSocket endpoints on TCP 443
+#
+# ChatGPT Voice:
+#   OpenAI currently prefers UDP 3478 and publishes dynamic server IP ranges.
+#   Those addresses may change, so fixed IP-CIDR entries are intentionally omitted.

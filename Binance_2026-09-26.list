@@ -1,0 +1,36 @@
+# NAME: Binance
+# FORMAT: Surge Rule Set
+# UPDATED: 2026-09-26
+#
+# Binance primary domains
+DOMAIN-SUFFIX,binance.com
+DOMAIN-SUFFIX,binance.info
+DOMAIN-SUFFIX,binance.me
+DOMAIN-SUFFIX,binance.im
+DOMAIN-SUFFIX,binance.cloud
+DOMAIN-SUFFIX,binance.click
+
+# Binance API / compatibility domains
+DOMAIN-SUFFIX,binanceapi.com
+DOMAIN-SUFFIX,binancefuture.com
+
+# Binance static / app infrastructure
+DOMAIN-SUFFIX,bnbstatic.com
+DOMAIN-SUFFIX,bntrace.com
+DOMAIN-SUFFIX,binancecnt.com
+DOMAIN-SUFFIX,bnappzh.co
+DOMAIN-SUFFIX,bnbzh.ac
+
+# Binance auxiliary service domains
+DOMAIN-SUFFIX,saasexch.com
+DOMAIN-SUFFIX,saasexch.co
+DOMAIN-SUFFIX,saasexch.io
+DOMAIN-SUFFIX,saasexch.cc
+
+# Newer auxiliary / fallback infrastructure
+DOMAIN-SUFFIX,yingwangtech.cloud
+DOMAIN-SUFFIX,yingwangtech.net
+DOMAIN-SUFFIX,yingwangtech.mobi
+DOMAIN-SUFFIX,yingwangtech.club
+DOMAIN-SUFFIX,yingwangtech.cc
+DOMAIN-SUFFIX,bscdnweb.com
