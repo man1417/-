@@ -1,17 +1,30 @@
 # NAME: Binance
 # FORMAT: Surge Rule Set
 # UPDATED: 2026-10-06
-# PURPOSE: Binance dedicated routing
+# MODE: FINAL=DIRECT
 #
-# Notes:
-# - Core Binance domains
-# - Domains confirmed from actual Binance / Binance Helper traffic
-# - Selected compatibility / legacy Binance domains
-# - Shared third-party services are intentionally excluded
+# Binance dedicated routing rules
+# Designed for:
+#   Binance -> Japan Proxy
+#   Unmatched traffic -> DIRECT
+#
+# IMPORTANT:
+# PROCESS-NAME works on Surge Mac only.
+# iOS ignores PROCESS-NAME and continues using domain/IP rules.
 
 # =========================================================
-# Binance primary domains
+# Binance Process Fallback - Surge Mac
 # =========================================================
+
+# Covers Binance / Binance Helper / renderer subprocesses.
+# This also safely captures third-party services used ONLY
+# inside Binance without globally proxying Google/Sentry/etc.
+PROCESS-NAME,Binance*
+
+# =========================================================
+# Binance Primary Domains
+# =========================================================
+
 DOMAIN-SUFFIX,binance.com
 DOMAIN-SUFFIX,binance.info
 DOMAIN-SUFFIX,binance.me
@@ -19,20 +32,17 @@ DOMAIN-SUFFIX,binance.im
 DOMAIN-SUFFIX,binance.cloud
 DOMAIN-SUFFIX,binance.click
 
-# Compatibility / legacy Binance domains
-DOMAIN-SUFFIX,binance.org
-DOMAIN-SUFFIX,binance.us
-DOMAIN-SUFFIX,binancezh.cc
+# =========================================================
+# Binance API / Futures
+# =========================================================
 
-# =========================================================
-# Binance API / futures / compatibility
-# =========================================================
 DOMAIN-SUFFIX,binanceapi.com
 DOMAIN-SUFFIX,binancefuture.com
 
 # =========================================================
-# Binance static / application infrastructure
+# Binance Static / App Infrastructure
 # =========================================================
+
 DOMAIN-SUFFIX,bnbstatic.com
 DOMAIN-SUFFIX,bntrace.com
 DOMAIN-SUFFIX,binancecnt.com
@@ -40,13 +50,18 @@ DOMAIN-SUFFIX,bnappzh.co
 DOMAIN-SUFFIX,bnbzh.ac
 DOMAIN-SUFFIX,bscdnweb.com
 
-# Confirmed from Binance / Binance Helper runtime traffic
-DOMAIN-SUFFIX,nftstatic.com
+# =========================================================
+# Confirmed Binance Runtime Infrastructure
+# Confirmed from actual Binance / Binance Helper captures
+# =========================================================
+
 DOMAIN-SUFFIX,mokexapp.tv
+DOMAIN-SUFFIX,nftstatic.com
 
 # =========================================================
-# Binance auxiliary / API fallback infrastructure
+# Binance Auxiliary / API Infrastructure
 # =========================================================
+
 DOMAIN-SUFFIX,saasexch.com
 DOMAIN-SUFFIX,saasexch.co
 DOMAIN-SUFFIX,saasexch.io
@@ -54,10 +69,23 @@ DOMAIN-SUFFIX,saasexch.cc
 DOMAIN-SUFFIX,saasexch.info
 
 # =========================================================
-# Newer auxiliary / fallback infrastructure
+# Binance Auxiliary / Fallback Infrastructure
 # =========================================================
+
 DOMAIN-SUFFIX,yingwangtech.cloud
 DOMAIN-SUFFIX,yingwangtech.net
 DOMAIN-SUFFIX,yingwangtech.mobi
 DOMAIN-SUFFIX,yingwangtech.club
 DOMAIN-SUFFIX,yingwangtech.cc
+
+# =========================================================
+# Binance Direct-IP Endpoints
+# Repeatedly confirmed in runtime captures
+# SNI = null
+# Keep /32 only to avoid affecting unrelated cloud traffic
+# =========================================================
+
+IP-CIDR,120.24.233.110/32,no-resolve
+IP-CIDR,47.106.171.207/32,no-resolve
+IP-CIDR,8.133.231.173/32,no-resolve
+IP-CIDR,39.96.16.38/32,no-resolve
