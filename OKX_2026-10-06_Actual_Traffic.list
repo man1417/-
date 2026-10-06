@@ -1,0 +1,26 @@
+# OKX / 欧意 Surge RULE-SET
+# Generated from actual Surge traffic captured on 2026-10-06.
+# Scope: OKX.app core traffic + verified/functional supporting endpoints.
+# Rule-set lines intentionally do not contain a policy.
+
+# macOS: catch the OKX main process and helper processes.
+# Surge iOS ignores PROCESS-NAME rules, so domain rules below are also included.
+PROCESS-NAME,OKX*
+
+# Official / first-party OKX infrastructure
+DOMAIN-SUFFIX,okx.com
+DOMAIN-SUFFIX,coinall.ltd
+DOMAIN,okg-pub-hk.oss-cn-hongkong.aliyuncs.com
+
+# Observed OKX application service endpoints in this capture
+# Exact-host rules are used because parent-domain ownership was not independently verified.
+DOMAIN,okexweb.qqhrss.com
+DOMAIN,wspri.gihiji.com
+
+# Functional third-party services observed from OKX
+DOMAIN,dkapi-ga.geetest.com
+DOMAIN,www.tradingview-widget.com
+
+# Intentionally NOT domain-routed here:
+# mc.yandex.ru       - analytics/telemetry; shared by unrelated apps/sites
+# stun.l.google.com  - public Google STUN; shared infrastructure and UDP-specific
