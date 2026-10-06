@@ -1,26 +1,110 @@
-# OKX / 欧意 Surge RULE-SET
-# Generated from actual Surge traffic captured on 2026-10-06.
-# Scope: OKX.app core traffic + verified/functional supporting endpoints.
-# Rule-set lines intentionally do not contain a policy.
+# OKX / 欧意 Surge 完整稳定规则集
+# Version: 2026-10-06 R2
+# Source:
+#   1) Surge Archive actual traffic: 2026-10-06 12:56
+#   2) Surge Archive actual traffic: 2026-10-06 13:12
+#   3) Compatibility domains from current/public OKX rule references
+#
+# IMPORTANT:
+# - This is a RULE-SET file. Do NOT append a policy name to lines below.
+# - In [Rule], place this RULE-SET ABOVE generic proxy sets such as Proxy_All_No_Resolve.list.
+# - macOS process rules provide the final safety net for OKX dynamic/raw-IP connections.
+# - iOS ignores PROCESS-NAME, so domain coverage below is intentionally broader than R1.
 
-# macOS: catch the OKX main process and helper processes.
-# Surge iOS ignores PROCESS-NAME rules, so domain rules below are also included.
+# ============================================================
+# 0. macOS catch-all
+# ============================================================
+# App-bundle mode (Surge Mac 6+): catches all executables inside OKX.app.
+PROCESS-NAME,/Applications/OKX.app/
+# Filename fallback: catches OKX and OKX Helper style process names.
 PROCESS-NAME,OKX*
 
-# Official / first-party OKX infrastructure
+# ============================================================
+# 1. OKX first-party / primary infrastructure
+# ============================================================
 DOMAIN-SUFFIX,okx.com
+DOMAIN-SUFFIX,okx.cab
+DOMAIN-SUFFIX,okx.net
+DOMAIN-SUFFIX,okex.com
+DOMAIN-SUFFIX,okex.me
+DOMAIN-SUFFIX,okmac.com
+DOMAIN-SUFFIX,okcoin.com
 DOMAIN-SUFFIX,coinall.ltd
+DOMAIN-SUFFIX,oklink.com
+
+# OKX DNS / bootstrap domains
+DOMAIN-SUFFIX,okx-dns.com
+DOMAIN-SUFFIX,okx-dns1.com
+DOMAIN-SUFFIX,okx-dns2.com
+
+# Future/variant safety net for hostnames containing OKX/OKEX.
+DOMAIN-KEYWORD,okx
+DOMAIN-KEYWORD,okex
+
+# ============================================================
+# 2. OKX alternate / failover domains observed in real traffic
+# ============================================================
+# API / web gateway
+DOMAIN-SUFFIX,qqhrss.com
+
+# WebSocket primary / derivatives failover groups
+DOMAIN-SUFFIX,gihiji.com
+DOMAIN-SUFFIX,yiym1eo.com
+DOMAIN-SUFFIX,ouyich.biz
+DOMAIN-SUFFIX,ouyich.show
+
+# Static / bootstrap mirrors
+DOMAIN-SUFFIX,jingyunyilian.com
+DOMAIN-SUFFIX,yqtjc.cn
+
+# ============================================================
+# 3. OKX direct distribution endpoint observed in real traffic
+# ============================================================
 DOMAIN,okg-pub-hk.oss-cn-hongkong.aliyuncs.com
 
-# Observed OKX application service endpoints in this capture
-# Exact-host rules are used because parent-domain ownership was not independently verified.
-DOMAIN,okexweb.qqhrss.com
-DOMAIN,wspri.gihiji.com
-
-# Functional third-party services observed from OKX
+# ============================================================
+# 4. Functional shared dependencies observed from OKX
+#    Exact-host rules are used to reduce cross-app overmatching.
+# ============================================================
+# CAPTCHA / verification
 DOMAIN,dkapi-ga.geetest.com
+DOMAIN,www.recaptcha.net
+
+# Risk / device verification
+DOMAIN,aa.online-metrix.net
+
+# Embedded market/chart component
 DOMAIN,www.tradingview-widget.com
 
-# Intentionally NOT domain-routed here:
-# mc.yandex.ru       - analytics/telemetry; shared by unrelated apps/sites
-# stun.l.google.com  - public Google STUN; shared infrastructure and UDP-specific
+# ============================================================
+# 5. Legacy OKX wallet compatibility
+# ============================================================
+DOMAIN,wallet.okex.org
+
+# ============================================================
+# Intentionally excluded from dedicated OKX routing
+# ============================================================
+# The following appeared in OKX traffic but are shared analytics,
+# advertising or generic Google/TikTok/Yandex infrastructure.
+# They should stay under your normal global proxy rules instead of
+# being forced into the OKX policy:
+#
+# mc.yandex.ru
+# analytics.tiktok.com
+# analytics-ipv6.tiktokw.us
+# www.googletagmanager.com
+# www.google-analytics.com
+# analytics.google.com
+# ad.doubleclick.net
+# googleads.g.doubleclick.net
+# stats.g.doubleclick.net
+# www.googleadservices.com
+# www.google.com
+# www.google.co.jp
+# www.gstatic.com
+#
+# Also intentionally NOT added:
+# - raw OKX destination IPs seen without SNI
+# - CloudFront/AliCDN/CNAME parent networks
+# Those addresses are dynamic/shared. On macOS PROCESS-NAME catches them;
+# hard-coding shared IP ranges would make the rule set less stable, not more.
