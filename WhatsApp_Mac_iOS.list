@@ -1,0 +1,17 @@
+# ============================================================
+# WhatsApp for Surge
+# Platform: macOS + iOS
+# Source: Surge macOS traffic audit
+#
+# Design:
+# 1. macOS uses process matching to capture WhatsApp app traffic.
+# 2. iOS falls back to WhatsApp-owned domains.
+# 3. Intentionally does NOT include fbcdn.net or Meta IP ranges.
+# ============================================================
+
+# --- macOS ---
+PROCESS-NAME,/Applications/WhatsApp.app/
+
+# --- macOS + iOS ---
+DOMAIN-SUFFIX,whatsapp.com
+DOMAIN-SUFFIX,whatsapp.net
