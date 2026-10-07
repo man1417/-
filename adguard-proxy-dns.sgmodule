@@ -1,0 +1,17 @@
+#!name=AdGuard 代理广告过滤
+#!desc=腾讯加密DNS直连；代理流量交给服务端AdGuard；直连广告本地拦截
+
+[General]
+# 传统 DNS 只用于 bootstrap：解析加密 DNS 域名本身、连通性测试
+dns-server = 223.5.5.5, 119.29.29.29, system
+
+# 腾讯加密 DNS：DoT + DoH 并发查询；只保留你原来的 tls://dot.pub 也可以
+encrypted-dns-server = tls://dot.pub, https://doh.pub/dns-query
+
+# 关键：保持 false，让加密 DNS 走 DIRECT
+# 设 true 且 FINAL 是代理时，国内域名的解析也会绕美国
+encrypted-dns-follow-outbound-mode = false
+
+[Rule]
+# 模块规则会插入到规则列表最前面；直连广告域名直接 REJECT
+RULE-SET,https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Surge/Advertising/Advertising.list,REJECT
