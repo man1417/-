@@ -1,0 +1,42 @@
+# Gate exchange - Surge external RULE-SET (full observational variant)
+# Generated: 2026-10-15
+# RULE-SET,Gate-Surge.list,🇭🇰 香港节点
+# IMPORTANT: the bottom section has exact hosts seen in a Gate app log.
+# Log co-occurrence is not proof these hostnames belong to Gate.
+# If these affect another app or speed, switch to Gate-Surge-Core.list.
+
+# Gate / documented domains
+DOMAIN-SUFFIX,gate.com
+DOMAIN-SUFFIX,gate.io
+DOMAIN-SUFFIX,gateio.ws
+DOMAIN-SUFFIX,gateio.io
+DOMAIN-SUFFIX,gateio.live
+DOMAIN-SUFFIX,gateio.services
+DOMAIN-SUFFIX,gatedata.org
+DOMAIN-SUFFIX,gatebigdata.com
+DOMAIN-SUFFIX,gateimg.com
+DOMAIN-SUFFIX,gatenft.io
+DOMAIN-SUFFIX,gate.ac
+DOMAIN-SUFFIX,gateapp.org
+DOMAIN-SUFFIX,gatexsecurity.com
+DOMAIN-SUFFIX,gatetrace.com
+
+# Additional exact hosts from user-provided Surge traffic archive (2026-10-15)
+DOMAIN,app-spot-ws.zudanje.com
+DOMAIN,app-fx-ws.zudanje.com
+DOMAIN,app.zudanje.com
+DOMAIN,snssdk.zudanje.com
+DOMAIN,tpull.zudanje.com
+DOMAIN,app-spot-ws.mbm06.com
+DOMAIN,app-fx-ws.mbm06.com
+DOMAIN,app-img-bpo.tsarvgh.com
+DOMAIN,api.ldd678.com
+DOMAIN,apipro.ldd678.com
+DOMAIN,app.bxjddjt.com
+DOMAIN,static.panpno.com
+DOMAIN,social-normal-v3.panpno.com
+DOMAIN,icon.staticimgs.com
+DOMAIN,gavatar.staticimgs.com
+DOMAIN,gimg.staticimgs.com
+DOMAIN,gimg2.staticimgs.com
+DOMAIN,social-cdn.gposts.net
